@@ -1,5 +1,6 @@
 package dev.mxtheuz.productapi.controller;
 
+import dev.mxtheuz.productapi.domain.dto.CreateBodyDTO;
 import dev.mxtheuz.productapi.domain.dto.HttpResponse;
 import dev.mxtheuz.productapi.domain.entities.Product;
 import dev.mxtheuz.productapi.domain.repositories.IProductRepository;
@@ -32,4 +33,9 @@ public class ProductController {
         return ResponseEntity.ok(new HttpResponse(200, "success", product));
     }
 
+    @PostMapping
+    public ResponseEntity<HttpResponse> CreateProduct(@RequestBody CreateBodyDTO dto) {
+        Product product = this.productRepository.save(new Product(dto));
+        return ResponseEntity.status(201).body(new HttpResponse(201, "success", product));
+    }
 }
